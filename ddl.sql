@@ -579,3 +579,21 @@ INSERT INTO Groupings VALUES
 (11,'Test Case 11','Passed'),
 (12,'Test Case 12','Passed');
 
+
+/*
+DDL for Puzzle #32
+First and Last
+*/
+DROP TABLE IF EXISTS Personnel;
+
+CREATE TABLE Personnel
+(
+SpacemanID      INTEGER PRIMARY KEY,
+JobDescription  VARCHAR(100),
+MissionCount    INTEGER
+);
+
+INSERT INTO Personnel VALUES
+(1001,'Astrogator',6),(2002,'Astrogator',12),(3003,'Astrogator',17),
+(4004,'Geologist',21),(5005,'Geologist',9),(6006,'Geologist',8),
+(7007,'Technician',13),(8008,'Technician',2),(9009,'Technician',7);

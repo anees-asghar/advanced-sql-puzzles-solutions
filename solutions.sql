@@ -400,3 +400,23 @@ FROM (
 	FROM Groupings
 ) AS t
 GROUP BY grup, Status;
+
+
+/*
+Solution to Puzzle #32
+First and Last
+*/
+WITH PersonnelWithExtremes AS (
+	SELECT *, 
+		MAX(MissionCount) OVER (PARTITION BY JobDescription) HighestCount, 
+		Min(MissionCount) OVER (PARTITION BY JobDescription) LowestCount
+	FROM Personnel
+)
+SELECT JobDescription, MAX(MostExp) 'Most Experienced', MAX(LeastExp) 'Least Experienced'
+FROM (
+	SELECT JobDescription,
+		(CASE WHEN MissionCount = HighestCount THEN SpacemanID ELSE NULL END) MostExp,
+		(CASE WHEN MissionCount = LowestCount THEN SpacemanID ELSE NULL END) LeastExp
+	FROM PersonnelWithExtremes
+) as t
+GROUP BY JobDescription;
