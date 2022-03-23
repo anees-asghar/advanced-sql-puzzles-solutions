@@ -381,3 +381,22 @@ Fill the Gaps
 */
 SELECT RowNumber, @currTestCase := (CASE WHEN TestCase IS NOT NULL THEN TestCase ELSE @currTestCase END) Workflow
 FROM Gaps;
+
+
+/*
+Solution to Puzzle #29
+Count the Groupings
+*/
+SET @lastStatus = NULL;
+SET @n = 0;
+SELECT
+	MIN(StepNumber) 'Min Step Number', 
+    MAX(StepNumber) 'Max Step Number', 
+    Status, COUNT(1) 'Consecutive Count'
+FROM (
+	SELECT *, 
+		@n:=(CASE WHEN Status = @lastStatus THEN @n ELSE @n+1 END) grup, 
+		@lastStatus:=Status lastStatus
+	FROM Groupings
+) AS t
+GROUP BY grup, Status;

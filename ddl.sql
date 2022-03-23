@@ -550,3 +550,32 @@ TestCase    VARCHAR(100)
 INSERT INTO Gaps VALUES
 (1,'Alpha'),(2,NULL),(3,NULL),(4,NULL),
 (5,'Bravo'),(6,NULL),(7,'Charlie'),(8,NULL),(9,NULL);
+
+
+/*
+DDL for Puzzle #29
+Count the Groupings
+*/
+DROP TABLE IF EXISTS Groupings;
+
+CREATE TABLE Groupings
+(
+StepNumber  INTEGER PRIMARY KEY,
+TestCase    VARCHAR(100),
+Status    VARCHAR(100)
+);
+
+INSERT INTO Groupings VALUES
+(1,'Test Case 1','Passed'),
+(2,'Test Case 2','Passed'),
+(3,'Test Case 3','Passed'),
+(4,'Test Case 4','Passed'),
+(5,'Test Case 5','Failed'),
+(6,'Test Case 6','Failed'),
+(7,'Test Case 7','Failed'),
+(8,'Test Case 8','Failed'),
+(9,'Test Case 9','Failed'),
+(10,'Test Case 10','Passed'),
+(11,'Test Case 11','Passed'),
+(12,'Test Case 12','Passed');
+
