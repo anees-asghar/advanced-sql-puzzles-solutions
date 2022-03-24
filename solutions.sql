@@ -420,3 +420,10 @@ FROM (
 	FROM PersonnelWithExtremes
 ) as t
 GROUP BY JobDescription;
+
+# Alternative/cleaner solution (using FIRST_VALUE)
+SELECT DISTINCT 
+	JobDescription, 
+	FIRST_VALUE(SpacemanID) OVER (PARTITION BY JobDescription ORDER BY MissionCount DESC) 'Most Experienced', 
+    FIRST_VALUE(SpacemanID) OVER (PARTITION BY JobDescription ORDER BY MissionCount) 'Least Experienced'
+FROM Personnel;
