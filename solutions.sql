@@ -427,3 +427,75 @@ SELECT DISTINCT
 	FIRST_VALUE(SpacemanID) OVER (PARTITION BY JobDescription ORDER BY MissionCount DESC) 'Most Experienced', 
     FIRST_VALUE(SpacemanID) OVER (PARTITION BY JobDescription ORDER BY MissionCount) 'Least Experienced'
 FROM Personnel;
+
+
+/*
+Solution to Puzzle #34
+Specific Exclusion
+*/
+SELECT *
+FROM Orders
+WHERE CustomerID != 1001 OR Amount != 50;
+
+
+/*
+Solution to Puzzle #35
+International vs Domestic Sales
+*/
+WITH SalesRepRecord AS (
+	SELECT SalesRepID, 
+		MAX(SalesType) = 'International' HasInterSales,
+        MIN(SalesType) = 'Domestic' HasDomSales
+    FROM Orders o 
+    GROUP BY SalesRepID
+)
+SELECT SalesRepID
+FROM SalesRepRecord
+WHERE HasInterSales + HasDomSales = 1;
+
+
+/*
+Solution to Puzzle #37
+Group Criteria Keys
+*/
+SET @n = 0;
+SET @lastCombo = '';
+SELECT CriteriaID, OrderID, Distributor, Facility, Zone, Amount
+FROM (
+	SELECT *, 
+		@n:=(CASE WHEN CONCAT(Distributor, Facility, Zone) != @lastCombo THEN @n+1 ELSE @n END) CriteriaID, 
+		@lastCombo:=CONCAT(Distributor, Facility, Zone) LastCombo
+	FROM GroupCriteria
+	ORDER BY Distributor, Facility, Zone
+) AS t;
+
+
+/*
+Solution to Puzzle #38
+Reporting Elements
+*/
+WITH Regions AS (
+	SELECT 'North' Region UNION SELECT 'South' UNION SELECT 'East' UNION SELECT 'West'
+), Distributors AS (
+	SELECT DISTINCT Distributor FROM RegionSales
+)
+SELECT t.Region, t.Distributor, IFNULL(Sales, 0) 
+FROM (
+	SELECT * FROM Regions, Distributors
+) AS t
+LEFT JOIN RegionSales rs 
+	ON t.Region = rs.Region AND t.Distributor = rs.Distributor;
+    
+
+/*
+Solution to Puzzle #39
+Prime Numbers
+*/
+SELECT *
+FROM SampleData t1
+WHERE 1 = (
+	SELECT COUNT(1) 
+    FROM SampleData 
+    WHERE IntegerValue < t1.IntegerValue AND 
+		t1.IntegerValue MOD IntegerValue = 0
+);

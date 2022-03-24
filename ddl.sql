@@ -597,3 +597,146 @@ INSERT INTO Personnel VALUES
 (1001,'Astrogator',6),(2002,'Astrogator',12),(3003,'Astrogator',17),
 (4004,'Geologist',21),(5005,'Geologist',9),(6006,'Geologist',8),
 (7007,'Technician',13),(8008,'Technician',2),(9009,'Technician',7);
+
+
+/*
+DDL for Puzzle #34
+Specific Exclusion
+*/
+DROP TABLE IF EXISTS Orders;
+
+CREATE TABLE Orders
+(
+OrderID     VARCHAR(100) PRIMARY KEY,
+CustomerID  INTEGER,
+Amount      INT
+);
+
+INSERT INTO Orders VALUES
+('Ord143937',1001,25),('Ord789765',1001,50),
+('Ord345434',2002,65),('Ord465633',3003,50);
+
+
+/*
+DDL for Puzzle #35
+International vs Domestic Sales
+*/
+DROP TABLE IF EXISTS Orders;
+
+CREATE TABLE Orders
+(
+InvoiceID   VARCHAR(100) PRIMARY KEY,
+SalesRepID  INTEGER,
+Amount      INT,
+SalesType   VARCHAR(100)
+);
+
+INSERT INTO Orders VALUES
+('Inv345756',1001,13454,'International'),
+('Inv546744',2002,3434,'International'),
+('Inv234745',4004,54645,'International'),
+('Inv895745',5005,234345,'International'),
+('Inv006321',7007,776,'International'),
+('Inv734534',1001,4564,'Domestic'),
+('Inv600213',2002,34534,'Domestic'),
+('Inv757853',3003,345,'Domestic'),
+('Inv198632',6006,6543,'Domestic'),
+('Inv977654',8008,67,'Domestic');
+
+
+/*
+DDL for Puzzle #36
+Traveling Salesman
+The Traveling Salesman is a popular puzzle in optimization.
+https://en.wikipedia.org/wiki/Travelling_salesman_problem
+For this puzzle, I solve it by hardcoding the number of connections to 4.
+You may wish to use recursion and set a maximum number of recursions, as
+their is the possibility of the traveling salesman traveling back and forth 
+between the same cities.
+Alternatively, you could try and solve it with the rule that the traveling
+salesman cannot visit each city twice.
+----
+Tags:
+Recursion
+UNION ALL
+*/
+DROP TABLE IF EXISTS Graph;
+
+CREATE TABLE Graph
+(
+DepartureCity   VARCHAR(100),
+ArrivalCity     VARCHAR(100),
+Cost            INTEGER,
+PRIMARY KEY (DepartureCity, ArrivalCity)
+);
+
+INSERT INTO Graph VALUES
+('Austin','Dallas',100),
+('Dallas','Austin',150),
+('Dallas','Memphis',200),
+('Memphis','Des Moines',300),
+('Dallas','Des Moines',400);
+
+
+/*
+DDL for Puzzle #37
+Group Criteria Keys
+*/
+DROP TABLE IF EXISTS GroupCriteria;
+
+CREATE TABLE GroupCriteria
+(
+OrderID     VARCHAR(100) PRIMARY KEY,
+Distributor VARCHAR(100),
+Facility    INTEGER,
+Zone      VARCHAR(100),
+Amount      INT
+);
+
+INSERT INTO GroupCriteria VALUES
+('Ord156795','ACME',123,'ABC',100),
+('Ord826109','ACME',123,'ABC',75),
+('Ord342876','Direct Parts',789,'XYZ',150),
+('Ord994981','Direct Parts',789,'XYZ',125);
+
+
+/*
+DDL for Puzzle #38
+Reporting Elements
+*/
+DROP TABLE IF EXISTS RegionSales;
+
+CREATE TABLE RegionSales
+(
+Region      VARCHAR(100),
+Distributor VARCHAR(100),
+Sales       INTEGER,
+PRIMARY KEY (Region, Distributor)
+);
+
+INSERT INTO RegionSales VALUES
+('North','ACE',10),
+('South','ACE',67),
+('East','ACE',54),
+('North','Direct Parts',8),
+('South','Direct Parts',7),
+('West','Direct Parts',12),
+('North','ACME',65),
+('South','ACME',9),
+('East','ACME',1),
+('West','ACME',7);
+
+
+/*
+DDL for Puzzle #39
+Prime Numbers
+*/
+DROP TABLE IF EXISTS SampleData;
+
+CREATE TABLE SampleData
+(
+IntegerValue INTEGER PRIMARY KEY
+);
+
+INSERT INTO SampleData VALUES
+(1),(2),(3),(4),(5),(6),(7),(8),(9),(10);
