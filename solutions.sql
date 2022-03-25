@@ -499,3 +499,73 @@ WHERE 1 = (
     WHERE IntegerValue < t1.IntegerValue AND 
 		t1.IntegerValue MOD IntegerValue = 0
 );
+
+
+/*
+Solution to Puzzle #40
+Sort Order
+*/
+SELECT City
+FROM SortOrder
+ORDER BY (ROW_NUMBER() OVER () MOD 2) = 1;
+
+
+/*
+Solution to Puzzle #43
+Unbounded Preceding
+*/
+SELECT *, MIN(Quantity) OVER (PARTITION BY CustomerID ORDER BY OrderID RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) 'Min Value'
+FROM CustomerOrders;
+
+
+/*
+Solution to Puzzle #46
+Positive Account Balances
+*/
+# 1
+SELECT DISTINCT AccountID
+FROM AccountBalances t
+WHERE NOT EXISTS (SELECT Balance FROM AccountBalances WHERE AccountID = t.AccountID AND Balance > -1);
+
+# 2
+SELECT AccountID
+FROM AccountBalances
+GROUP BY AccountID
+HAVING MAX(Balance) < 0;
+
+# 3
+SELECT DISTINCT AccountID
+FROM AccountBalances
+WHERE AccountID NOT IN (
+	SELECT AccountID
+    FROM AccountBalances 
+    WHERE Balance > -1
+);
+
+# 4
+SELECT AccountID
+FROM AccountBalances t
+GROUP BY AccountID
+HAVING COUNT(Balance) = (SELECT COUNT(1) FROM AccountBalances WHERE AccountID = t.AccountID AND Balance < 0);
+
+# 5
+SELECT DISTINCT t1.AccountID 
+FROM AccountBalances t1
+LEFT OUTER JOIN AccountBalances t2 
+	ON t1.AccountID = t2.AccountID AND t2.Balance > 0
+WHERE t2.Balance IS NULL;
+
+
+/*
+Solution to Puzzle #48
+Consecutive Sales
+*/
+SELECT DISTINCT SalesID
+FROM Sales t
+WHERE 3 = (
+	SELECT COUNT(DISTINCT Year) 
+    FROM Sales 
+    WHERE SalesID = t.SalesID AND Year IN (2019, 2020, 2021)
+);
+
+

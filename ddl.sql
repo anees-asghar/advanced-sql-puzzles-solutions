@@ -740,3 +740,73 @@ IntegerValue INTEGER PRIMARY KEY
 
 INSERT INTO SampleData VALUES
 (1),(2),(3),(4),(5),(6),(7),(8),(9),(10);
+
+
+/*
+DDL for Puzzle #40
+Sort Order
+*/
+DROP TABLE IF EXISTS SortOrder;
+
+CREATE TABLE SortOrder
+(
+City VARCHAR(100) PRIMARY KEY
+);
+
+INSERT INTO SortOrder VALUES
+('Atlanta'),('Baltimore'),('Chicago'),('Denver');
+
+
+/*
+DDL for Puzzle #43
+Unbounded Preceding
+*/
+DROP TABLE IF EXISTS CustomerOrders;
+
+CREATE TABLE CustomerOrders
+(
+OrderID INTEGER,
+CustomerID INTEGER,
+Quantity INTEGER,
+PRIMARY KEY (OrderID, CustomerID)
+);
+
+INSERT INTO CustomerOrders VALUES 
+(1,1001,5), (2,1001,8), (3,1001,3), (4,1001,7), (1,2002,4), (2,2002,9);
+
+
+/*
+DDL for Puzzle #46
+Positive Account Balances
+*/
+DROP TABLE IF EXISTS AccountBalances;
+
+CREATE TABLE AccountBalances
+(
+AccountID   INTEGER,
+Balance     INT,
+PRIMARY KEY (AccountID, Balance)
+);
+
+INSERT INTO AccountBalances VALUES
+(1001,234.45),(1001,-23.12),(2002,-93.01),(2002,-120.19),
+(3003,186.76), (3003,90.23), (3003,10.11);
+
+
+/*
+DDL for Puzzle #48
+Consecutive Sales
+*/
+DROP TABLE IF EXISTS Sales;
+
+CREATE TABLE Sales
+(
+SalesID INTEGER,
+Year  INTEGER,
+PRIMARY KEY (SalesID, Year)
+);
+
+INSERT INTO Sales
+VALUES
+(1001,2018),(1001,2019),(1001,2020),(2002,2020),(2002,2021),
+(3003,2018),(3003,2020),(3003,2021),(4004,2019),(4004,2020),(4004,2021);
