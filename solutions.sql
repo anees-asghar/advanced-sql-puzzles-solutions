@@ -569,3 +569,55 @@ WHERE 3 = (
 );
 
 
+/*
+Solution to Puzzle #49
+Sumo Wrestlers
+*/
+SELECT Name 
+FROM (
+	SELECT *, SUM(Weight) OVER (ORDER BY LineOrder RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) total
+	FROM ElevatorOrder
+) AS t
+WHERE total <= 2000
+ORDER BY LineOrder DESC
+LIMIT 1;
+
+# Alternative solution (significantly slower)
+SELECT Name
+FROM (
+	SELECT *, 
+		SUM(Weight) OVER (ORDER BY LineOrder RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) sum,
+		LEAD(Weight) OVER () next
+	FROM ElevatorOrder
+) AS t
+WHERE sum < 2000 AND sum + next > 2000;
+ 
+
+/*
+DDL for Puzzle #53
+Spouse IDs
+*/
+SELECT DENSE_RANK() OVER (ORDER BY CoupleID) GroupID, PrimaryID, SpouseID
+FROM (
+	SELECT *,  
+		CASE WHEN PrimaryID < SpouseID 
+        THEN CONCAT(PrimaryID, '-', SpouseID) 
+        ELSE CONCAT(SpouseID, '-', PrimaryID) 
+        END CoupleID
+	FROM Spouses
+) AS t
+ORDER BY CoupleID, PrimaryID;
+
+
+/*
+Solution to Puzzle #54
+Winning Numbers
+*/
+WITH ticket_winnings AS (
+	SELECT TicketID, CASE WHEN COUNT(1) = 3 THEN 100 ELSE 10 END winnings
+	FROM LotteryTickets lt
+	JOIN WinningNumbers wn
+		USING (Number)
+	GROUP BY TicketID
+)
+SELECT SUM(winnings) total_winnings FROM ticket_winnings;

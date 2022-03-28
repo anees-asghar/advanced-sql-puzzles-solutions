@@ -799,7 +799,7 @@ Consecutive Sales
 */
 DROP TABLE IF EXISTS Sales;
 
-CREATE TABLE Sales
+CREATE TABLE Sales	
 (
 SalesID INTEGER,
 Year  INTEGER,
@@ -810,3 +810,67 @@ INSERT INTO Sales
 VALUES
 (1001,2018),(1001,2019),(1001,2020),(2002,2020),(2002,2021),
 (3003,2018),(3003,2020),(3003,2021),(4004,2019),(4004,2020),(4004,2021);
+
+
+/*
+DDL for Puzzle #49
+Sumo Wrestlers
+*/
+DROP TABLE IF EXISTS ElevatorOrder;
+
+CREATE TABLE ElevatorOrder
+(
+Name VARCHAR(100) PRIMARY KEY,
+Weight INTEGER,
+LineOrder INTEGER
+);
+
+INSERT INTO ElevatorOrder
+VALUES
+('Haruto',611,1),('Minato',533,2),('Haruki',623,3),
+('Sota',569,4),('Aoto',610,5),('Hinata',525,6);
+
+
+/*
+DDL for Puzzle #53
+Spouse IDs
+*/
+DROP TABLE IF EXISTS Spouses;
+
+CREATE TABLE Spouses
+(
+PrimaryID VARCHAR(100) PRIMARY KEY,
+SpouseID  VARCHAR(100) UNIQUE NOT NULL
+);
+
+INSERT INTO Spouses VALUES
+('Pat','Charlie'),('Jordan','Casey'),
+('Ashley','Dee'),('Charlie','Pat'),
+('Casey','Jordan'),('Dee','Ashley');
+
+
+/*
+DDL for Puzzle #54
+Winning Numbers
+*/
+DROP TABLE IF EXISTS WinningNumbers;
+DROP TABLE IF EXISTS LotteryTickets;
+	
+CREATE TABLE WinningNumbers
+(
+Number INTEGER
+);
+
+CREATE TABLE LotteryTickets
+(
+TicketID    VARCHAR(100),
+Number      INTEGER,
+PRIMARY KEY (TicketID, Number)
+);
+
+INSERT INTO WinningNumbers VALUES(25),(45),(78);
+
+INSERT INTO LotteryTickets VALUES
+('A23423',25),('A23423',45),('A23423',78),
+('B35643',25),('B35643',45),('B35643',98),
+('C98787',67),('C98787',86),('C98787',91);
