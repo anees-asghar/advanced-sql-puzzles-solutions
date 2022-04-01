@@ -874,3 +874,33 @@ INSERT INTO LotteryTickets VALUES
 ('A23423',25),('A23423',45),('A23423',78),
 ('B35643',25),('B35643',45),('B35643',98),
 ('C98787',67),('C98787',86),('C98787',91);
+
+
+/*
+DDL for Puzzle #55
+Table Audit
+*/
+DROP TABLE IF EXISTS ProductsA;
+DROP TABLE IF EXISTS ProductsB;
+
+CREATE TABLE ProductsA
+(
+ProductName VARCHAR(100),
+Quantity    INTEGER
+);
+
+CREATE TABLE ProductsB
+(
+ProductName VARCHAR(100),
+Quantity    INTEGER
+);
+
+INSERT INTO ProductsA VALUES
+('Widget',7),
+('Doodad',9),
+('Gizmo',3);
+
+INSERT INTO ProductsB VALUES
+('Widget',7),
+('Doodad',6),
+('Dingbat',9);

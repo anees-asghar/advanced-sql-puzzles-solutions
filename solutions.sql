@@ -621,3 +621,34 @@ WITH ticket_winnings AS (
 	GROUP BY TicketID
 )
 SELECT SUM(winnings) total_winnings FROM ticket_winnings;
+
+
+/*
+Solution to Puzzle #55
+Table Audit
+*/
+WITH all_products AS (
+	SELECT p1.ProductName table_a_product, p1.Quantity table_a_quantity, p2.ProductName table_b_product, p2.Quantity table_b_quantity
+	FROM ProductsA p1
+	LEFT OUTER JOIN ProductsB P2
+		USING (ProductName)
+	UNION 
+	SELECT p1.ProductName, p1.Quantity, p2.ProductName, p2.Quantity
+	FROM ProductsA p1
+	RIGHT OUTER JOIN ProductsB p2 
+		USING (ProductName)
+)
+SELECT
+	CASE WHEN table_a_product IS NULL 
+		THEN 'Product does not exist in table A' 
+    WHEN table_b_product IS NULL
+		THEN 'Product does not exist in table B'
+	ELSE
+		CASE WHEN table_a_quantity = table_b_quantity
+			THEN 'Matches in both tables'
+		ELSE 
+			'Quantity in table A and table B do not match'
+		END
+    END Type,
+    IFNULL(table_a_product, table_b_product) ProductName
+FROM all_products;
