@@ -1,4 +1,4 @@
 # advanced-sql-puzzles-solutions
-This repository contains my solutions to the set of advanced SQL puzzles presented by @smpetersgithub, using MySQL.
+This repository contains my MySQL-based solutions to the 'Advanced SQL Puzzles' authored by @smpetersgithub.
 
 Find the original problems at: https://advancedsqlpuzzles.com/
